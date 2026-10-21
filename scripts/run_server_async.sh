@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Async S2/S1: S2 goal worker on S2_DEVICE, S1 control path on S1_DEVICE.
 set -euo pipefail
-BUNDLE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+BUNDLE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 PYTHON_BIN="${PYTHON_BIN:-python3}"
 HOST="${HOST:-127.0.0.1}"
 PORT="${PORT:-5801}"

@@ -35,7 +35,7 @@
     "ui_port": 5803,
     "ui": "validation sample browser, upload, S2 goal and S1 trajectory overlay",
     "async": {
-      "launcher": "run_server_async.sh",
+      "launcher": "scripts/run_server_async.sh",
       "s2_device": "cuda:0",
       "s1_device": "cuda:1",
       "max_goal_age_s": 2.25,

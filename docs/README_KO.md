@@ -39,8 +39,8 @@ python3 deployments/dualvln_vla_e2e_20261009/tools/client_example.py \
 먼저 S2/S1 backend를 실행한 뒤 별도 터미널에서 UI를 실행한다.
 
 ```bash
-PYTHON_BIN=/home/work/vln_project/venv/bin/python HOST=0.0.0.0 PORT=5801 ./run_server.sh
-PYTHON_BIN=/home/work/vln_project/venv/bin/python UI_HOST=0.0.0.0 UI_PORT=5803 ./run_ui.sh
+PYTHON_BIN=/home/work/vln_project/venv/bin/python HOST=0.0.0.0 PORT=5801 ./scripts/run_server.sh
+PYTHON_BIN=/home/work/vln_project/venv/bin/python UI_HOST=0.0.0.0 UI_PORT=5803 ./scripts/run_ui.sh
 ```
 
 브라우저에서 `http://<server-ip>:5803`을 연다. validation 샘플 2,571개를 명령별로 탐색하거나 직접 front/look-down 이미지를 업로드할 수 있다. 지시문과 행동 타입을 입력하면 다음을 함께 표시한다.
@@ -59,7 +59,7 @@ python3 deployments/dualvln_vla_e2e_20261009/tools/build_portable_bundle.py \
   artifacts/dualvln-vla-e2e-20261009-rc2
 cd artifacts/dualvln-vla-e2e-20261009-rc2
 python3 tools/validate_release.py
-PYTHON_BIN=/path/to/python ./run_server.sh
+PYTHON_BIN=/path/to/python ./run_server.sh  # rc2 번들은 루트에 스크립트 (rc3부터 scripts/)
 ```
 
 번들은 checkpoint 중간 저장본을 제외하고 최종 모델 shard만 복사한다. 예상 모델 weight는 약 31.1 GiB다.
@@ -95,7 +95,7 @@ PYTHON_BIN=/path/to/python ./run_server.sh
 
 ```bash
 PYTHON_BIN=/home/work/vln_project/venv/bin/python HOST=0.0.0.0 PORT=5801 \
-  S2_DEVICE=cuda:0 S1_DEVICE=cuda:1 ./run_server_async.sh
+  S2_DEVICE=cuda:0 S1_DEVICE=cuda:1 ./scripts/run_server_async.sh
 ```
 
 API는 동일하다. 응답에 `goal_age_ms`, `goal_frame_seq`, `s1_latency_ms`, `s2_latency_ms`가 추가되며,

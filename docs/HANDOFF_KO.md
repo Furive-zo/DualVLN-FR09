@@ -130,7 +130,7 @@ ssh -N -L 5803:127.0.0.1:5803 <user>@<server>
 - 비동기 S2/S1 검토: 현재 런타임은 직렬. 비동기 시 제어 루프(S1)는 약 365 ms로 2 Hz 충족.
   goal 지연 오프라인 평가(`outputs/async_goal_lag_s1v9/REPORT_KO.md`) 결과 1.0~1.5 s 지연에서 ADE +3~6 mm로
   재학습 없이 분리 가능. 단 S1은 goal 의존도가 낮음(goal 좌우 반전 시 ADE +0.05 m, safe_stop은 거의 무변화).
-- **비동기 런타임 구현** (`run_server_async.sh`, `runtime/async_runtime.py`, 상세 `outputs/shadow_test_async_20261020/REPORT_KO.md`):
+- **비동기 런타임 구현** (`scripts/run_server_async.sh`, `runtime/async_runtime.py`, 상세 `outputs/shadow_test_async_20261020/REPORT_KO.md`):
   S2 서브프로세스(GPU 0) + S1 요청 경로(GPU 1, GPU 전처리). 2 Hz 실시간 shadow test에서 제어 응답
   p50 363 / p95 413 ms(직렬 1420 ms), 명령 유지 구간 trajectory 출력 95.8%. goal 나이 상한 기본 2.25 s.
   명령 변경 직후 약 1 s는 goal 대기 STOP. 직렬 `run_server.sh`는 rc2와 bit-identical로 유지.
