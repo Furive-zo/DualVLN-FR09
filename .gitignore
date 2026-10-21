@@ -1,9 +1,76 @@
-# Model weights are distributed separately (Google Drive), see WEIGHTS_KO.md.
-models/
-checkpoints/
+# ---------------------------------------------------------------------------
+# Model weights: distributed separately via Google Drive (see WEIGHTS_KO.md).
+# Never commit them; they are trained on internal vehicle data.
+# ---------------------------------------------------------------------------
+/models/
+/checkpoints/
+*.safetensors
+*.safetensors.index.json
+*.bin
+*.pt
+*.pth
+*.ckpt
+*.onnx
+*.engine
+*.plan
+*.gguf
+*.h5
+*.npz
+*.npy
 SHA256SUMS.check
-__pycache__/
-*.pyc
+
+# Recorded vehicle data, test outputs and run logs
+/outputs/
+/shadow_*/
+/smoke_*/
+/data/
+/datasets/
+/recordings/
+*.jsonl
+*.mp4
+*.bag
+*.mcap
+*.db3
+/logs/
 *.log
-logs/
-outputs/
+nohup.out
+core
+core.*
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+/build/
+/dist/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# Environments
+/.venv/
+/venv/
+/env/
+/.conda/
+
+# Secrets and local configuration
+.env
+.env.*
+*.pem
+*.key
+id_rsa*
+id_ed25519*
+credentials*.json
+rclone.conf
+config/local*.json
+
+# Editors / OS
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
