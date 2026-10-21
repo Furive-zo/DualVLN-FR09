@@ -18,7 +18,11 @@
   },
   "trajectory": {
     "frame": "vehicle ego-local",
-    "units": ["meter", "meter", "radian"],
+    "units": [
+      "meter",
+      "meter",
+      "radian"
+    ],
     "points": 4,
     "candidates": 4,
     "semantic_forward_axis": "negative_y",
@@ -30,5 +34,20 @@
     "history_front_max": 8,
     "safe_stop_previous_goal": true,
     "reset_required": "at episode boundary or instruction target change"
+  },
+  "trained_instructions": {
+    "note": "exact instruction text in the training data; the model reads this text, command only routes",
+    "follow": "도로를 따라 주행하라",
+    "turn_left": "좌회전하라",
+    "turn_right": "우회전하라",
+    "stop": "정지하라",
+    "safe_stop": [
+      "왼쪽에서 첫 번째 빈 주차면에 안전하게 진입하여 정차하라",
+      "왼쪽에서 두 번째 빈 주차면에 안전하게 진입하여 정차하라",
+      "오른쪽에서 두 번째 빈 주차면에 안전하게 진입하여 정차하라",
+      "오른쪽에서 세 번째 빈 주차면에 안전하게 진입하여 정차하라",
+      "오른쪽에서 네 번째 빈 주차면에 안전하게 진입하여 정차하라",
+      "왼쪽에 주차된 차량 기준 2칸 왼쪽의 빈 주차면에 안전하게 진입하여 정차하라"
+    ]
   }
 }

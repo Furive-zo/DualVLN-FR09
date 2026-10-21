@@ -41,6 +41,13 @@
 - Train/Val은 **episode 단위 분리**(누수 없음). Val: 주행 data3/8/11/12, 주차 data901/904/911.
 - 주행 episode는 평균 약 85 s / 90 m, 주차 episode는 약 30 s / 10 m.
 
+![episode trajectories](figures/dataset_trajectories.png)
+
+주행은 구내 순환로(사각 루프)를 여러 방향으로 돈 기록이고, 주차는 통로 직진 후 좌·우 주차면으로 약 90° 꺾어
+들어가는 기록이다. Validation 주행(빨강)은 학습 주행과 같은 도로를 공유하므로 **장소 일반화는 평가하지 못한다.**
+
+![commands](figures/dataset_commands.png)
+
 <details><summary>episode별 상세</summary>
 
 | Episode | Split | 세션 | 프레임 | 시간(s) | 거리(m) | S2 샘플 |
@@ -203,6 +210,11 @@ Latency:
 
 비동기 2 Hz 재생에서 명령 유지 구간 trajectory 출력 95.8%, 명령 변경 직후 약 1 s는 goal 대기 STOP.
 
+![async timeline](figures/async_timeline.png)
+
+data11 실시간 재생. 응답(파랑)은 모두 500 ms 예산 안에 들어오고, 빨간 X(STOP)는 주행 시작과 명령이 바뀐 직후에만
+몰려 있다. goal 나이는 S2 주기(약 0.94 s)와 2 Hz 프레임이 맞물려 1.0/1.5/2.0 s로 계단처럼 움직인다.
+
 ## 5. 정성 평가
 
 ### 5.1 Baseline vs 도메인 적응
@@ -211,7 +223,32 @@ Latency:
 
 사전학습 모델(위)은 실내 R2R 습관대로 엉뚱한 방향·길이의 궤적을 낸다. 적응 후(아래)는 GT(녹색)를 따라 차선 방향으로 진행한다.
 
-### 5.2 S2 pixel-goal (v6, median 사례)
+### 5.2 연속 주행 시퀀스 (rc3 런타임으로 새로 실행)
+
+`tools/render_sequence.py`로 validation episode 전체를 프레임 순서대로 실제 런타임(S2 v6 + S1 v9, history·prior 유지)에
+통과시킨 결과다. 주황 십자 = S2 goal, 노란 원 = GT goal, 연빨강 = S1 후보 4개, 자홍 = 제어 선택 궤적, 오른쪽 = 위에서 본 궤적.
+
+![driving sequence](figures/seq_driving_data11.jpg)
+
+- data11(주행 157프레임): 156프레임 정상 궤적, 끝의 `stop` 명령 1프레임은 즉시 STOP(4 ms).
+- 직진·완만한 곡선은 안정적이다. 회전 명령에서도 S1 궤적은 **4–5 m 앞까지 완만하게만 휜다**(끝점 횡이동 약 0.5–1.2 m).
+  교차로처럼 큰 회전은 여러 주기에 걸쳐 조금씩 꺾는 방식이 된다.
+- 회전 명령 중 S2 goal이 GT와 반대쪽에 찍히는 프레임이 있다(frame 100: goal이 아래쪽 화면 밖, 궤적은 약하게 우측).
+
+![driving gif](figures/seq_driving_data11.gif)
+
+### 5.3 주차 시퀀스
+
+![parking sequence](figures/seq_parking.jpg)
+
+- data901 "오른쪽에서 세 번째 빈 주차면": S2 goal이 오른쪽 주차열의 GT 근처를 계속 추적한다(goal median 오차 203 px).
+- 그러나 **S1 궤적은 거의 직진**한다(끝점 횡이동 평균 +0.12 m, heading 변화 9°). 실제 주차는 약 10 m 동안 90° 가까이 꺾어
+  들어간다(2.2절 그림). goal이 옆에 있어도 S1이 그쪽으로 꺾지 않는 것이 정성적으로도 확인된다(4.4절 "goal 의존도 낮음"과 일치).
+- data904 "왼쪽 차량 기준 2칸 왼쪽": 초반(frame 10)에 S2 goal이 **반대편(오른쪽) 주차열**에 찍힌다. 접근 후반(frame 35)에는 GT 근처로 온다.
+
+![parking gif](figures/seq_parking_data901.gif)
+
+### 5.4 S2 pixel-goal (v6, median 사례)
 
 | Follow | Turn left | Turn right |
 |---|---|---|
@@ -219,7 +256,7 @@ Latency:
 
 일반 주행은 진행 방향 노면 위 목표를 안정적으로 찍는다.
 
-### 5.3 S2 safe-stop closed-loop
+### 5.5 S2 safe-stop closed-loop
 
 | Median | Worst (오차 1,832 px) |
 |---|---|
@@ -229,13 +266,13 @@ Latency:
 
 실패 유형: 지시한 주차면(녹색 GT, 왼쪽)이 아니라 **통로 반대편 주차열**(빨강 예측, 오른쪽)을 고른다. 시간축으로 보면 틀린 목표가 이어지다 한 번에 크게 점프한다.
 
-### 5.4 동일 장면 좌/우 지시
+### 5.6 동일 장면 좌/우 지시
 
 ![counterfactual](figures/s2_counterfactual_scene000.jpg)
 
 같은 영상에서 지시문만 left(파랑)/right(빨강)로 바꾸면 예측이 올바른 방향으로 갈라진다.
 
-### 5.5 S1 궤적 (v9, median 사례)
+### 5.7 S1 궤적 (v9, median 사례)
 
 | Follow | Turn left |
 |---|---|
@@ -245,7 +282,7 @@ Latency:
 
 녹색 GT, 연빨강 후보 4개, 파랑 평균, 자홍 S2 goal에 가장 가까운 후보. 주행 명령은 GT와 거의 겹치고 후진 후보가 없다.
 
-### 5.6 S1 실패 사례 (safe_stop worst, ADE 1.53 m)
+### 5.8 S1 실패 사례 (safe_stop worst, ADE 1.53 m)
 
 ![](figures/s1_safe_stop_worst.jpg)
 
@@ -259,7 +296,7 @@ GT는 오른쪽 주차면으로 꺾지만 후보는 직진~좌측으로 퍼진�
 | STOP 분류 | validation 100% |
 | 일반 주행 궤적 (S1) | ADE 0.4 m, bearing ≤10° 91–95% |
 | safe_stop 목표 grounding | **미달** — 반대편 주차열 선택, 초기 탐지 약함 |
-| safe_stop 궤적 | 진행 방향은 타당하나 정밀 주차 부족(≤10° 42.6%) |
+| safe_stop 궤적 | 주차면 쪽으로 꺾지 못하고 거의 직진(연속 재생 확인), ≤10° 42.6% |
 | 실시간성 | 비동기로 2 Hz 충족 |
 | 실차 폐루프 | **미검증** — shadow mode 전용 |
 
