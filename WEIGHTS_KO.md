@@ -13,9 +13,22 @@ checkpoints/depth_anything_v2_metric_hypersim_vits.pth
 release 번들의 `models/`, `checkpoints/` 폴더를 Drive의 `dualvln-vla-e2e-20261021-rc3/` 폴더에 그대로 업로드한다.
 공유는 필요한 사람/그룹에만 준다(링크 공개 금지: 사내 차량 데이터로 학습된 weight).
 
+```bash
+tools/upload_weights_gdrive.sh [remote=gdrive] [folder=dualvln-vla-e2e-20261021-rc3]
+```
+
+업로드 후 `rclone check`(크기·MD5)로 원본과 대조하고, `SHA256SUMS`도 같은 폴더에 올린다.
+rc3는 2026-10-21 업로드·검증 완료(models 29개 + checkpoints 1개, 차이 0).
+
+업로드용 rclone remote는 `scope=drive.file`(rclone이 만든 파일만 접근)로 만든다. 서버에 브라우저가 없으면
+`rclone config`에서 자동 인증을 `n`으로 두고, 출력되는 `rclone authorize "drive" "..."`를 브라우저 있는 PC에서
+실행해 받은 `eyJ...` 문자열을 `config_token>`에 붙여 넣는다. rclone 공용 client_id는 2026년 중 폐지 예정이므로
+Google Cloud에서 데스크톱 앱 OAuth client를 만들어 `client_id`/`client_secret`에 넣는 것을 권장한다.
+
 ## 받기
 
-방법 1 — rclone (권장, 비공개 폴더 가능):
+방법 1 — rclone (권장, 비공개 폴더 가능). 공유받은 폴더는 `drive.file` 범위로는 보이지 않으므로 받는 쪽 remote는
+기본 `scope=drive`로 만들고, 공유 폴더를 "내 드라이브에 바로가기 추가"하거나 `--drive-shared-with-me`를 붙인다:
 
 ```bash
 rclone copy "gdrive:dualvln-vla-e2e-20261021-rc3/models" ./models -P
