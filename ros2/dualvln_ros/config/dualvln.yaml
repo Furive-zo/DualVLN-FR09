@@ -1,0 +1,12 @@
+dualvln_inference:
+  ros__parameters:
+    server_url: http://127.0.0.1:5801       # GPU inference server (scripts/run_server_async.sh)
+    image_topic: /camera/front/image_rect/compressed   # rectified (plumb_bob undistorted) 1920x1080
+    compressed: true                         # false -> sensor_msgs/Image (rgb8/bgr8)
+    rate_hz: 2.0                             # training data is 2 Hz; do not raise
+    timeout_s: 0.8                           # HTTP timeout per request
+    watchdog_s: 1.0                          # stop if no valid trajectory for this long
+    frame_id: base_link                      # frame of ~/path (pose at image capture time)
+    initial_command: stop                    # publish ~/command to start driving
+    warmup: 6                                # throw-away requests before the first drive
+    jpeg_quality: 95

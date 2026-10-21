@@ -35,7 +35,7 @@ SHA256SUMS.check
 *.log
 nohup.out
 core
-core.*
+core.[0-9]*
 
 # Python
 __pycache__/

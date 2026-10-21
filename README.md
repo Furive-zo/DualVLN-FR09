@@ -4,6 +4,7 @@ S2(지시문 + 시간축 영상 → look-down pixel-goal/STOP)와 S1(goal + 현�
 2모델 추론 서버. 상세 사용법·API는 [docs/README_KO.md](docs/README_KO.md), 인수인계 이력은 [docs/HANDOFF_KO.md](docs/HANDOFF_KO.md),
 데이터셋·실험·평가는 [reports/EXPERIMENTS_KO.md](reports/EXPERIMENTS_KO.md).
 **실차 실시간 추론(서버 켜기·지시문·API·안전 규칙): [docs/REALTIME_VEHICLE_KO.md](docs/REALTIME_VEHICLE_KO.md)**
+· 모델 입출력: [docs/MODEL_IO_KO.md](docs/MODEL_IO_KO.md) · ROS 2 노드: [docs/ROS2_KO.md](docs/ROS2_KO.md)
 
 > **운용 상태: shadow mode 전용.** safe_stop은 recorded-sequence shadow gate를 통과하지 못했다
 > (goal median 오차 203~1177 px). 폐쇄구역 검증 전 실제 차량 제어에 연결하지 않는다.
@@ -40,7 +41,8 @@ python3 tools/verify_weights.py && python3 tools/validate_release.py
 | `scripts/` | 서버·UI 실행 스크립트 |
 | `config/` | 릴리스 manifest, 런타임 계약, 평가 요약, weight lock |
 | `tools/` | 검증·재생·profiling·배포 도구 |
-| `docs/` | 실차 추론(`REALTIME_VEHICLE_KO.md`), 사용법(`README_KO.md`), 인수인계(`HANDOFF_KO.md`), weight 배포(`WEIGHTS_KO.md`) |
+| `ros2/dualvln_ros/` | ROS 2 패키지: 카메라 토픽 → 추론 서버 → `nav_msgs/Path` + stop 플래그 |
+| `docs/` | 실차 추론(`REALTIME_VEHICLE_KO.md`), 모델 입출력(`MODEL_IO_KO.md`), ROS 2(`ROS2_KO.md`), 사용법(`README_KO.md`), 인수인계(`HANDOFF_KO.md`), weight 배포(`WEIGHTS_KO.md`) |
 | `reports/` | 데이터셋·실험·정량/정성 평가 보고서와 그림 |
 | `models/`, `checkpoints/` | weight (git 제외, Google Drive) |
 

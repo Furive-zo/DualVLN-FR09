@@ -6,6 +6,9 @@
 > 실제 조향/가감속 연결은 폐쇄구역 저속 검증과 safe_stop gate 통과 뒤에 한다.
 > 특히 `safe_stop`은 gate 미통과(주차면 목표 median 오차 203–1,177 px)이므로 실차 제어에 쓰지 않는다.
 
+
+ROS 2 차량에서는 [ROS2_KO.md](ROS2_KO.md)의 `dualvln_ros` 노드를 쓴다(이 문서의 HTTP 클라이언트를 ROS 토픽으로 감싼 것). 모델 입출력 상세: [MODEL_IO_KO.md](MODEL_IO_KO.md).
+
 ## 1. 구성
 
 ```
