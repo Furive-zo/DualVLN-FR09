@@ -12,10 +12,10 @@ checkpoints/depth_anything_v2_metric_hypersim_vits.pth
 
 | 항목 | Google Drive |
 |---|---|
-| 릴리스 폴더 `dualvln-vla-e2e-20261021-rc3/` | https://drive.google.com/drive/folders/1sZl4lgkVkJfAL7DB9BCApyN_PDl99_m_ |
-| `models/` | https://drive.google.com/drive/folders/1r2adB3OpJ7qujIPGQOpGE34OAuesYM5Z |
-| `checkpoints/` | https://drive.google.com/drive/folders/1P-O8oXz4FDMeww2IDEDPFrd69JL8HyrO |
-| `SHA256SUMS` | https://drive.google.com/file/d/1CpYH_2Zp8Y0StJVME1B13llTa2_D-59G/view |
+| 릴리스 폴더 `dualvln-vla-e2e-20261021-rc3/` | [열기](https://drive.google.com/drive/folders/1sZl4lgkVkJfAL7DB9BCApyN_PDl99_m_) |
+| `models/` | [열기](https://drive.google.com/drive/folders/1r2adB3OpJ7qujIPGQOpGE34OAuesYM5Z) |
+| `checkpoints/` | [열기](https://drive.google.com/drive/folders/1P-O8oXz4FDMeww2IDEDPFrd69JL8HyrO) |
+| `SHA256SUMS` | [열기](https://drive.google.com/file/d/1CpYH_2Zp8Y0StJVME1B13llTa2_D-59G/view) |
 
 ## 올리기 (릴리스 담당)
 

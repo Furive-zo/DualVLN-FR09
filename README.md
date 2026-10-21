@@ -12,10 +12,13 @@ S2(지시문 + 시간축 영상 → look-down pixel-goal/STOP)와 S1(goal + 현�
 git clone <this repo> dualvln && cd dualvln
 # NVIDIA PyTorch(검증: torch 2.10.0a0 nv25.11)를 먼저 설치한 뒤
 pip install -r requirements-inference.txt
-# weight 받기 + 검증: WEIGHTS_KO.md
-# (Drive, 비공개: https://drive.google.com/drive/folders/1sZl4lgkVkJfAL7DB9BCApyN_PDl99_m_)
+# weight 받기(아래 링크 / WEIGHTS_KO.md) 후 검증
 python3 tools/verify_weights.py && python3 tools/validate_release.py
 ```
+
+**Weights (Google Drive, 비공개 — 공유받은 계정만):**
+[dualvln-vla-e2e-20261021-rc3](https://drive.google.com/drive/folders/1sZl4lgkVkJfAL7DB9BCApyN_PDl99_m_)
+(`models/`, `checkpoints/`, `SHA256SUMS`). 받는 방법은 [WEIGHTS_KO.md](WEIGHTS_KO.md).
 
 ## 실행
 
