@@ -8,6 +8,15 @@ models/system1/   # S1: s1_e2e_v9_endpoint_focus   (config, tokenizer, safetenso
 checkpoints/depth_anything_v2_metric_hypersim_vits.pth
 ```
 
+## 링크 (rc3, 비공개 — 공유받은 계정만 접근)
+
+| 항목 | Google Drive |
+|---|---|
+| 릴리스 폴더 `dualvln-vla-e2e-20261021-rc3/` | https://drive.google.com/drive/folders/1sZl4lgkVkJfAL7DB9BCApyN_PDl99_m_ |
+| `models/` | https://drive.google.com/drive/folders/1r2adB3OpJ7qujIPGQOpGE34OAuesYM5Z |
+| `checkpoints/` | https://drive.google.com/drive/folders/1P-O8oXz4FDMeww2IDEDPFrd69JL8HyrO |
+| `SHA256SUMS` | https://drive.google.com/file/d/1CpYH_2Zp8Y0StJVME1B13llTa2_D-59G/view |
+
 ## 올리기 (릴리스 담당)
 
 release 번들의 `models/`, `checkpoints/` 폴더를 Drive의 `dualvln-vla-e2e-20261021-rc3/` 폴더에 그대로 업로드한다.
@@ -33,6 +42,10 @@ Google Cloud에서 데스크톱 앱 OAuth client를 만들어 `client_id`/`clien
 ```bash
 rclone copy "gdrive:dualvln-vla-e2e-20261021-rc3/models" ./models -P
 rclone copy "gdrive:dualvln-vla-e2e-20261021-rc3/checkpoints" ./checkpoints -P
+
+# 바로가기 없이 폴더 ID로 직접 받기
+rclone copy "gdrive,root_folder_id=1sZl4lgkVkJfAL7DB9BCApyN_PDl99_m_:models" ./models -P
+rclone copy "gdrive,root_folder_id=1sZl4lgkVkJfAL7DB9BCApyN_PDl99_m_:checkpoints" ./checkpoints -P
 ```
 
 방법 2 — Drive 웹/데스크톱에서 폴더를 내려받아 저장소 루트에 위 구조로 둔다.

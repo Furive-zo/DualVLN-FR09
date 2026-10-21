@@ -13,6 +13,7 @@ git clone <this repo> dualvln && cd dualvln
 # NVIDIA PyTorch(검증: torch 2.10.0a0 nv25.11)를 먼저 설치한 뒤
 pip install -r requirements-inference.txt
 # weight 받기 + 검증: WEIGHTS_KO.md
+# (Drive, 비공개: https://drive.google.com/drive/folders/1sZl4lgkVkJfAL7DB9BCApyN_PDl99_m_)
 python3 tools/verify_weights.py && python3 tools/validate_release.py
 ```
 
