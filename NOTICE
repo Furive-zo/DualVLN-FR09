@@ -1,0 +1,11 @@
+DualVLN VLA-E2E release — third-party components
+
+Code
+- InternNav / InternVLA-N1 (runtime/internnav): MIT License, Copyright (c) 2025 Intern Robotics.
+- Python dependencies in requirements-inference.txt keep their own licenses.
+
+Weights (distributed separately, see WEIGHTS_KO.md)
+- S2/S1 are fine-tuned from InternVLA-N1 (DualVLN) checkpoints built on Qwen2.5-VL-7B.
+  Check the upstream model licenses before any redistribution outside the team.
+- Depth Anything V2 Small (metric hypersim) checkpoint: check the upstream license.
+- Fine-tuned weights were trained on internal VLA-E2E vehicle data and are not for public redistribution.

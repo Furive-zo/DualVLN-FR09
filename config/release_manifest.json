@@ -1,0 +1,65 @@
+{
+  "release": "dualvln-vla-e2e-20261021-rc3",
+  "status": "release_candidate",
+  "architecture": "two_model_s2_to_s1",
+  "models": {
+    "system2": {
+      "name": "s2_e2e_v6_bootstrap_robust",
+      "source_path": "outputs/s2_e2e_v6_bootstrap_robust",
+      "portable_path": "models/system2",
+      "role": "instruction_and_temporal_images_to_pixel_goal",
+      "dtype": "bfloat16"
+    },
+    "system1": {
+      "name": "s1_e2e_v9_endpoint_focus",
+      "source_path": "outputs/s1_e2e_v9_endpoint_focus",
+      "portable_path": "models/system1",
+      "role": "s2_pixel_goal_and_current_images_to_trajectory_candidates",
+      "dtype": "bfloat16",
+      "selection_reason": "full_val_2446: mean_traj_ADE_0.405m_FDE_0.739m; v8_ADE_0.685m_FDE_1.331m"
+    }
+  },
+  "runtime": {
+    "device": "cuda:0",
+    "num_history_front": 8,
+    "num_trajectory_candidates": 4,
+    "num_inference_steps": 10,
+    "trajectory_output": "ego_local_meters_radians",
+    "input_resolution": [
+      1920,
+      1080
+    ],
+    "lookdown": "pseudo_crop_or_dedicated_camera",
+    "s2_to_s1_handoff": "coordinate_text_retokenized_with_s1_tokenizer",
+    "inference_port": 5801,
+    "ui_port": 5803,
+    "ui": "validation sample browser, upload, S2 goal and S1 trajectory overlay",
+    "async": {
+      "launcher": "run_server_async.sh",
+      "s2_device": "cuda:0",
+      "s1_device": "cuda:1",
+      "max_goal_age_s": 2.25,
+      "s1_gpu_preprocess": true,
+      "shadow_test_2hz": {
+        "control_rtt_ms_p50": 363.0,
+        "control_rtt_ms_p95": 412.5,
+        "trajectory_rate_steady_command": 0.958
+      }
+    }
+  },
+  "validation": {
+    "system2_report": "outputs/eval_s2_e2e_v6_bootstrap_robust_val/metrics.json",
+    "system1_report": "outputs/eval_s1_e2e_v9_endpoint_focus_full_val/metrics.json",
+    "system1_balanced_report": "outputs/eval_s1_e2e_v9_endpoint_focus_val/metrics.json"
+  },
+  "previous_release": "dualvln-vla-e2e-20261009-rc2",
+  "changes_since_previous": [
+    "bit-exact S2 preprocessing cache (sync path identical to rc2 outputs)",
+    "async S2/S1 runtime: S2 subprocess + S1 request path on separate GPUs (run_server_async.sh)",
+    "tools: shadow_replay.py, profile_latency.py, profile_detailed.py"
+  ],
+  "operational_limits": [
+    "shadow mode only until closed-course validation",
+    "safe_stop failed the recorded-sequence shadow gate (goal median error 203-1177 px); do not use for control"
+  ]
+}

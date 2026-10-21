@@ -1,0 +1,34 @@
+{
+  "commands": {
+    "follow": "전방 경로를 따라 주행하라",
+    "turn_left": "좌회전하라",
+    "turn_right": "우회전하라",
+    "safe_stop": "랜드마크로 특정한 안전 구역에 진입하여 정차하라",
+    "stop": "STOP"
+  },
+  "safe_stop_instruction_requirement": "relative landmark and target region must be explicit",
+  "pixel_goal": {
+    "frame": "current pseudo-lookdown image",
+    "format": "u v integer text",
+    "width": 1920,
+    "height": 1080,
+    "u_direction": "right_positive",
+    "v_direction": "down_positive",
+    "original_to_lookdown_v": "(v_original - 432) / 0.6"
+  },
+  "trajectory": {
+    "frame": "vehicle ego-local",
+    "units": ["meter", "meter", "radian"],
+    "points": 4,
+    "candidates": 4,
+    "semantic_forward_axis": "negative_y",
+    "lateral_motion": "allowed only with longitudinal motion and heading-consistent curvature",
+    "reverse_policy": "reject candidates with heading-relative reverse motion above 0.05m per step",
+    "stop_policy": "S2 STOP bypasses S1 and returns discrete action 0"
+  },
+  "temporal_state": {
+    "history_front_max": 8,
+    "safe_stop_previous_goal": true,
+    "reset_required": "at episode boundary or instruction target change"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "system2": {
+    "path": "/home/work/vln_project/vla_ws_restore/vla_project/artifacts/dualvln-vla-e2e-20261021-rc3/models/system2",
+    "architecture": "Qwen2_5_VLForConditionalGeneration",
+    "vocab_size": 152064,
+    "image_token_id": 151655,
+    "eos_token_id": 151645,
+    "shards": 4,
+    "weights_gib": 15.445,
+    "config_sha256": "f54e0e70af30a9d97d0201282cafe5c2f74df83c559d9cbd2138320b636e4289",
+    "index_sha256": "4be35310ddc165e46e88de4c3fec8c1210014b0b8717f4544d82cc740814ae0c"
+  },
+  "system1": {
+    "path": "/home/work/vln_project/vla_ws_restore/vla_project/artifacts/dualvln-vla-e2e-20261021-rc3/models/system1",
+    "architecture": "InternVLAN1ForCausalLM",
+    "vocab_size": 152064,
+    "image_token_id": 151655,
+    "eos_token_id": 151645,
+    "shards": 4,
+    "weights_gib": 15.629,
+    "config_sha256": "c85fbeac9bb4fac309b113c5a8d7a22cb22dd846e78509714c1ad2e0558f7904",
+    "index_sha256": "f2114576141603ff9ebaece837f2cf46d16a23250e341989a09fb4f5348e4c63"
+  },
+  "depth_anything": {
+    "path": "/home/work/vln_project/vla_ws_restore/vla_project/artifacts/dualvln-vla-e2e-20261021-rc3/checkpoints/depth_anything_v2_metric_hypersim_vits.pth",
+    "sha256": "b782898d8a3e8be1f639de33837ed85e9b4b73e40f8f5e5cd99067588d722545"
+  },
+  "handoff": {
+    "compatible_special_token_ids": true,
+    "retokenization_required": true,
+    "rule": "decode S2 coordinate text, then tokenize with S1 tokenizer"
+  }
+}

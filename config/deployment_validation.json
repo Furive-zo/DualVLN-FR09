@@ -1,0 +1,48 @@
+{
+  "release": "dualvln-vla-e2e-20261009-rc2",
+  "timestamp_utc": "2026-10-10T01:45:00Z",
+  "artifact": "artifacts/dualvln-vla-e2e-20261009-rc2",
+  "portable_size_gib_rounded": 32,
+  "checks": {
+    "python_compile": "pass",
+    "shell_syntax": "pass",
+    "release_validator": "pass",
+    "model_files_hashed": 30,
+    "portable_internal_imports": "pass",
+    "http_health": "pass",
+    "http_ready_after_load": "pass",
+    "episode_guard_409": "pass",
+    "fail_safe_stop_on_error": "pass",
+    "gpu_e2e_inference": "pass",
+    "gunicorn_single_worker_boot": "pass",
+    "ui_catalog_2571": "pass",
+    "ui_javascript_syntax": "pass",
+    "ui_to_backend_e2e": "pass"
+  },
+  "gpu_smoke": {
+    "gpu": "NVIDIA H200",
+    "sample_command": "turn_left",
+    "instruction": "좌회전하라",
+    "s2_output": "796 320",
+    "gt_pixel_goal_for_reference": "785 340",
+    "http_status": 200,
+    "control_decision": "trajectory",
+    "valid_candidate_mask": [
+      true,
+      true,
+      false,
+      true
+    ],
+    "inference_latency_ms": 4448.8
+  },
+  "remaining_gate": "recorded-sequence shadow test and low-speed closed-course vehicle validation",
+  "ui_smoke": {
+    "sample": "undistort_orin_pc_data11_00039.jpg_turn_left",
+    "http_status": 200,
+    "s2_output": "794 325",
+    "selected_index": 3,
+    "closest_to_goal_index": 1,
+    "projected_candidates": 4,
+    "latency_ms": 4276.0
+  }
+}

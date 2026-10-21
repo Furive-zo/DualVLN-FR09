@@ -1,0 +1,9 @@
+# Model weights are distributed separately (Google Drive), see WEIGHTS_KO.md.
+models/
+checkpoints/
+SHA256SUMS.check
+__pycache__/
+*.pyc
+*.log
+logs/
+outputs/
