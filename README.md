@@ -1,4 +1,4 @@
-# DualVLN VLA-E2E inference runtime (rc3)
+# DualVLN VLA-E2E inference runtime
 
 S2(지시문 + 시간축 영상 → look-down pixel-goal/STOP)와 S1(goal + 현재 영상 → ego-local 궤적 후보 4개)의
 2모델 추론 서버. 상세 사용법·API는 `README_KO.md`, 인수인계 이력은 `HANDOFF_KO.md`.
@@ -16,7 +16,7 @@ pip install -r requirements-inference.txt
 python3 tools/verify_weights.py && python3 tools/validate_release.py
 ```
 
-**Weights (Google Drive, 비공개 — 공유받은 계정만):**
+**Weights (Google Drive):**
 [dualvln-vla-e2e-20261021-rc3](https://drive.google.com/drive/folders/1sZl4lgkVkJfAL7DB9BCApyN_PDl99_m_)
 (`models/`, `checkpoints/`, `SHA256SUMS`). 받는 방법은 [WEIGHTS_KO.md](WEIGHTS_KO.md).
 
