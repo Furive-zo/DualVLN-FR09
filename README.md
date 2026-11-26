@@ -45,6 +45,7 @@ python3 tools/verify_weights.py && python3 tools/validate_release.py
 | `ros2/dualvln_ros/` | ROS 2 패키지: 카메라 토픽 → 추론 서버 → `nav_msgs/Path` + stop 플래그 |
 | `docs/` | 실차 추론(`REALTIME_VEHICLE_KO.md`), 스크립트 매뉴얼(`SCRIPTS_KO.md`), 모델 입출력(`MODEL_IO_KO.md`), ROS 2(`ROS2_KO.md`), 사용법(`README_KO.md`), 인수인계(`HANDOFF_KO.md`), weight 배포(`WEIGHTS_KO.md`) |
 | `reports/` | 데이터셋·실험·정량/정성 평가 보고서와 그림 |
+| `benchmarks/train_memory/` | S2 학습 메모리·속도 벤치마크(합성 데이터, GPU별 비교) |
 | `models/`, `checkpoints/` | weight (git 제외, Google Drive) |
 
 ## 검증 도구
