@@ -35,5 +35,14 @@ bash run_bench.sh <S2 체크포인트 폴더 | Qwen/Qwen2.5-VL-7B-Instruct>   # 
 |---|---|---|---|
 | H200 (141 GB) × 1 | batch 4 × accum 4 | 0.853 s | 48.7 GiB |
 | H200 (141 GB) × 1 | batch 1 × accum 4 | 0.909 s | 25.8 GiB |
+| RTX 5090 (32 GB) × 1 | batch 4 × accum 4 | OOM | 28.9 GiB 시점에 메모리 부족 |
+| RTX 5090 (32 GB) × 1 | batch 1 × accum 4 | 2.618 s | 27.0 GiB |
+| RTX 5090 (32 GB) × 2, DDP | batch 1 × accum 4 | 1.337 s | 27.7 GiB |
+| RTX 5090 (32 GB) × 4, DDP | batch 1 × accum 4 | 0.689 s | 27.7 GiB |
 
-원본 수치: `results_h200.jsonl`. 실제 S2 학습 로그(데이터 로딩·증강 포함)는 샘플당 약 1.06 s였다.
+샘플당 시간은 전체 GPU 기준(처리량의 역수)이다. H200 2장을 각각 독립 학습에 쓰면 샘플당 약 0.427 s로,
+RTX 5090 2장 DDP(1.337 s) 대비 약 3.13배 빠르다. RTX 5090은 batch 1에서도 GPU당 27~28 GiB(가용 31.4 GiB)를
+사용해 H200 기준 설정(batch 4)은 실행할 수 없다. RTX 5090 4장은 PCIe로만 연결되어 있다(`gpu_topo_rtx5090.txt`).
+DeepSpeed ZeRO-3 측정은 RTX 5090 환경(transformers 5.x / peft 0.19)의 dtype 오류로 수행하지 못했다.
+
+원본 수치: `results_h200.jsonl`, `results_rtx5090.jsonl` (RTX 5090: torch 2.8.0+cu128). GPU 정보: `gpu_info_rtx5090.txt`. 실제 S2 학습 로그(데이터 로딩·증강 포함)는 샘플당 약 1.06 s였다.
